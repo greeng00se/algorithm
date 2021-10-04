@@ -15,14 +15,15 @@ struct query {
 };
 
 int n, k, m;
-list<int> pos[101010];
+list<int> pos[202020];
 query q[101010];
 int arr[101010], ans[101010];
 int cnt[101010];
+int psum[101010];
 int bucket[sz];
 
 void mo_plus(int idx, bool flag) {
-	int &x = arr[idx];
+	int x = 101010 + psum[idx];
 	auto &dq = pos[x];
 	int now = 0;
 	
@@ -41,7 +42,7 @@ void mo_plus(int idx, bool flag) {
 }
 
 void mo_minus(int idx, bool flag) {
-	int &x = arr[idx];
+	int x = 101010 + psum[idx];
 	auto &dq = pos[x];
 	int now = dq.back() - dq.front();
 	
@@ -73,15 +74,17 @@ int query() {
 int main(void) {
 	ios::sync_with_stdio(0), cin.tie(0);
 	
-	cin >> n >> k;
+	cin >> n;
 	
 	for (int i = 1; i <= n; i++) {
 		cin >> arr[i];
+		psum[i] = psum[i - 1] + arr[i];
 	}
 	
 	cin >> m;
 	for (int i = 0; i < m; i++) {
 		cin >> q[i].l >> q[i].r;
+		q[i].l = q[i].l - 1;
 		q[i].idx = i;
 	}
 	
