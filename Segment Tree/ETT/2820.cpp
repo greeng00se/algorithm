@@ -1,27 +1,22 @@
 #include <bits/stdc++.h>
 
-#define endl "\n"
-#define int long long
-
 using namespace std;
 
-const int N = 101010;
+#define int long long
+
+const int N = 505050;
+vector<int> adj[N];
+int s[N], e[N];
 int arr[N];
 int st[4 * N];
 int lazy[4 * N];
 
-void buildTree(int si, int ss, int se) {
-    if (ss == se) {
-        st[si] = arr[ss];
-        return;
+void dfs(int v, int& num) {
+    s[v] = ++num;
+    for (int next : adj[v]) {
+		dfs(next, num);
     }
-    
-    int mid = (ss + se) / 2;
-    
-    buildTree(si * 2, ss, mid);
-    buildTree(si * 2 + 1, mid + 1, se);
-    
-    st[si] = (st[si * 2] + st[si * 2 + 1]);
+    e[v] = num;
 }
 
 void update_lazy(int si, int ss, int se) {
@@ -52,7 +47,7 @@ int query(int si, int ss, int se, int qs, int qe) {
 void update(int si, int ss, int se, int qs, int qe, int val) {
     update_lazy(si, ss, se);
     if (ss > qe || se < qs) return;
-    if (ss >= qs && se <= qe) {
+	if (ss >= qs && se <= qe) {
         lazy[si] = val;
         update_lazy(si, ss, se);
 		return;
@@ -67,24 +62,34 @@ void update(int si, int ss, int se, int qs, int qe, int val) {
 signed main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int n, q, code, l, r, k;
-    cin >> n;
+    int n, q, l, r;
+	char c;
+    cin >> n >> q;
     
-    for (int i = 1; i <= n; i++) 
-        cin >> arr[i];
+	cin >> l;
+	arr[1] = l;
+    for (int i = 2; i <= n; i++) {
+		cin >> l >> r;
+		adj[r].push_back(i);
+		arr[i] = l;
+	}
+	int num = 0;
+    dfs(1, num);
 	
-    buildTree(1, 1, n);
-    
-    cin >> q;
+	for (int i = 1; i <= n; i++) {
+		update(1, 1, n, s[i], s[i], arr[i]);
+	}
+	
     while(q--) {
-        cin >> code;
-        if (code == 1) {
+		cin >> c;
+        if (c == 'p') {
 			cin >> l >> r;
-			update(1, 1, n, l, r, 1);
+			if (s[l] == e[l]) continue;
+            update(1, 1, n, s[l] + 1, e[l], r);
         } else {
 			cin >> l;
-			cout << query(1, 1, n, l, l) << endl; 
-		}
+            cout << query(1, 1, n, s[l], s[l]) << '\n';
+        }
     }
 	
     return 0;
