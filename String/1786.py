@@ -1,5 +1,3 @@
-
-
 def getPi(p):
     m, j = len(p), 0
     pi = [0] * (m + 1)
@@ -34,4 +32,3 @@ matched = kmp(s, p)
 print(len(matched))
 for i in matched:
     print(i + 1, end = ' ')
-    
