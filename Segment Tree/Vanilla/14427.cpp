@@ -8,10 +8,8 @@ int st[4 * maxN];
 
 using namespace std;
 
-void buildTree(int si, int ss, int se)
-{
-    if (ss == se)
-    {
+void buildTree(int si, int ss, int se) {
+    if (ss == se) {
         st[si] = ss;
         return;
     }
@@ -27,15 +25,12 @@ void buildTree(int si, int ss, int se)
         st[si] = st[si * 2 + 1];
 }
 
-int query(int si, int ss, int se, int qs, int qe)
-{
+int query(int si, int ss, int se, int qs, int qe) {
     if (ss >= qs && se <= qe) return st[si];
 }
 
-void update(int si, int ss, int se, int qi, int newVal)
-{
-    if (ss == se)
-    {
+void update(int si, int ss, int se, int qi, int newVal) {
+    if (ss == se) {
         arr[ss] = newVal;
         return;
     }
@@ -52,8 +47,7 @@ void update(int si, int ss, int se, int qi, int newVal)
         st[si] = st[si * 2 + 1];
 }
 
-int main(void)
-{
+int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
     int n, q, code, l, r;
@@ -65,16 +59,12 @@ int main(void)
     buildTree(1, 1, n);
     
     cin >> q;
-    while(q--)
-    {
+    while(q--) {
         cin >> code;
-        if (code == 1)
-        {
+        if (code == 1) {
             cin >> l >> r;
             update(1, 1, n, l, r);
-        }
-        else
-        {
+        } else {
             cout << query(1, 1, n, 1, n) << endl;
         }
     }
