@@ -4,35 +4,31 @@ input = sys.stdin.readline
 
 n, k = map(int, input().split())
 data = list(map(int, input().split()))
-tap = [0] * n
+power = []
 result = 0
 
 for i in range(k):
-    if data[i] in tap:
+    if data[i] in power:
         continue
     
-    if 0 in tap: 
-        tap[tap.index(0)] = data[i]
+    if n > len(power):
+        power.append(data[i])
         continue
     
-    flag = 0
-    count = set()
-    for m in range(i + 1, k):
-        if n == 1 or flag: break
-        for j in tap:
-            if j == data[m]:
-                count.add(j)
-                break
-        if len(count) == n - 1:
-            q = set(tap) - count
-            tap[tap.index(list(q)[0])] = data[i]
-            flag = 1
-            result += 1
-            break
-    if flag: continue
-    q = set(tap) - count
-    tap[tap.index(list(q)[0])] = data[i]
     result += 1
+    
+    if n == 1:
+        power[0] = data[i]
+        continue
+        
+    idxs = []
+    for p in range(n):
+        try: idxs.append((data[i+1:].index(power[p]), p))
+        except: idxs.append((101, p))
+        
+    idxs.sort(reverse = True)
+    del power[idxs[0][1]]
+    power.append(data[i])
     
 print(result)
 
