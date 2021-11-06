@@ -8,18 +8,23 @@ queue = deque()
 for _ in range(rep):
     op = list(input().split())
     
-    if op[0] == 'push':
+    if op[0] == 'push_front':
+        queue.appendleft(int(op[1]))
+    elif op[0] == 'push_back':
         queue.append(int(op[1]))
-    if op[0] == 'pop':
+    elif op[0] == 'pop_front':
         if queue: print(queue.popleft())
         else: print(-1)
-    if op[0] == 'size':
+    elif op[0] == 'pop_back':
+        if queue: print(queue.pop())
+        else: print(-1)
+    elif op[0] == 'size':
         print(len(queue))
-    if op[0] == 'empty':
+    elif op[0] == 'empty':
         print(0 if queue else 1)
-    if op[0] == 'front':
+    elif op[0] == 'front':
         if queue: print(queue[0])
         else: print(-1)
-    if op[0] == 'back':
+    elif op[0] == 'back':
         if queue: print(queue[-1])
         else: print(-1)
