@@ -13,7 +13,7 @@ dc = [0, 1, 0, -1]
 def isout(x, y):
     return x >= n or y >= n or x < 0 or y < 0
 
-def dijkstra():
+def bfs():
     visited = [[INF] * n for _ in range(n)]
     hq = []
     heapq.heappush(hq, (0, 0))
@@ -36,7 +36,7 @@ def dijkstra():
     
     print(visited[n - 1][n - 1])
     
-dijkstra()
+bfs()
                 
         
     
