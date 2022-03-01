@@ -1,5 +1,3 @@
-package algorithm;
-
 import java.util.stream.IntStream;
 
 public class b4673 {
