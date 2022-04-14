@@ -28,7 +28,7 @@ def cmp(a, b):
             return x - y
     return len(a) - len(b)
 
-data.sort(key=cmp_to_key(cmp))
+data.sort(key = cmp_to_key(cmp))
 
 for result in data:
     print(''.join(result))
