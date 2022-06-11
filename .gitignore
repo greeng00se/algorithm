@@ -3,5 +3,4 @@
 *.manifest
 *.txt
 *.out
-*.md
 workspace.code-workspace
